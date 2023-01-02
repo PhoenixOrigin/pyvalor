@@ -37,8 +37,9 @@ class PlayerActivityTask(Task):
                     continue
                 for name in members:
                     member_cache_refresh.append((guild, name))
-                    if name in online_all: 
-                        inserts.append(f"(\"{name}\", \"{guild}\", {int(time.time())}, \"{members[name]}\")")
+                    if name in online_all:
+                        rank = g["members"][name]["rank"]
+                        inserts.append(f"(\"{name}\", \"{guild}\", {int(time.time())}, \"{members[name]}\", \"{rank}\")")
 
             Connection.execute(f"INSERT INTO activity_members VALUES {','.join(inserts)}")
 
